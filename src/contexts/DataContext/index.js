@@ -26,6 +26,7 @@ export const DataProvider = ({ children }) => {
   const getData = useCallback(async () => {
     try {
       const loadedData = await api.loadData()
+
       const sortedEvents = loadedData.events.sort(compareDate) // CompareData est utilisé comme callBack de la method sort.
       //  Le ".sort" utilise la fonction "compareData"
 
@@ -33,11 +34,12 @@ export const DataProvider = ({ children }) => {
       setLast(sortedEvents.at(-1)) // Récupération de la valeur à l'index donné: index négatif = commencer par la fin de l'array
 
     } catch (err) {
+
       setError(err);
     }
   }, []);
-  useEffect(() => {
 
+  useEffect(() => {
     if (data) return;
     getData();
   }, [data, getData]);
